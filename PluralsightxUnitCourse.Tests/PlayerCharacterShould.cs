@@ -88,5 +88,24 @@ namespace PluralsightxUnitCourse.Tests
 
             Assert.Equal(expectedWeapons, sut.Weapons);
         }
+
+        [Fact]
+        public void RaiseSleptEvent()
+        {
+            PlayerCharacter sut = new PlayerCharacter();
+
+            Assert.Raises<EventArgs>(
+                handler => sut.PlayerSlept += handler,
+                handler => sut.PlayerSlept -= handler,
+                () => sut.Sleep());
+        }
+
+        [Fact]
+        public void RasiePropertyChangedEvent()
+        {
+            PlayerCharacter sut = new PlayerCharacter();
+
+            Assert.PropertyChanged(sut, "Health", () => sut.TakeDamage(10));
+        }
     }
 }
