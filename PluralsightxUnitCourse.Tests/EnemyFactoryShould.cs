@@ -3,6 +3,7 @@ using System;
 
 namespace PluralsightxUnitCourse.Tests
 {
+    [Trait("Category", "Enemy")]
     public class EnemyFactoryShould
     {
         [Fact]

@@ -2,6 +2,7 @@
 
 namespace PluralsightxUnitCourse.Tests
 {
+    [Trait("Category", "Enemy")]
     public class BossEnemyShould
     {
         [Fact]
