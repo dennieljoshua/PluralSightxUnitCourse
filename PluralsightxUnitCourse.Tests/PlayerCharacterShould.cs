@@ -5,80 +5,69 @@ namespace PluralsightxUnitCourse.Tests
 {
     public class PlayerCharacterShould
     {
+        private readonly PlayerCharacter _sut;
+
+        public PlayerCharacterShould()
+        {
+            _sut = new PlayerCharacter();
+        }
+
         [Fact]
         public void BeInexperiencedWhenNew()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.True(sut.IsNoob);
+            Assert.True(_sut.IsNoob);
         }
 
         [Fact]
         public void CalculateFullName()
         {
-            PlayerCharacter sut = new PlayerCharacter();
+            _sut.FirstName = "Sarah";
+            _sut.LastName = "Smith";
 
-            sut.FirstName = "Sarah";
-            sut.LastName = "Smith";
-
-            Assert.Equal("Sarah Smith", sut.FullName);
+            Assert.Equal("Sarah Smith", _sut.FullName);
         }
 
         [Fact]
         public void StartWithDefaultHealth()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.Equal(100, sut.Health);
+            Assert.Equal(100, _sut.Health);
         }
 
         [Fact]
         public void IncreaseHealthAfterSleeping()
         {
-            PlayerCharacter sut = new PlayerCharacter();
+            _sut.Sleep();
 
-            sut.Sleep();
-
-            Assert.InRange<int>(sut.Health, 101, 200);
+            Assert.InRange<int>(_sut.Health, 101, 200);
         }
 
         [Fact]
         public void NotHaveNickNameByDefault()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.Null(sut.Nickname);
+            Assert.Null(_sut.Nickname);
         }
 
         [Fact]
         public void HaveALongBow()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.Contains("Long Bow", sut.Weapons);
+            Assert.Contains("Long Bow", _sut.Weapons);
         }
 
         [Fact]
         public void NotHaveAStaffOfWonder()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.DoesNotContain("Staff of Wonder", sut.Weapons);
+            Assert.DoesNotContain("Staff of Wonder", _sut.Weapons);
         }
 
         [Fact]
         public void HaveAtLeastOneKindOfSword()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.Contains(sut.Weapons, weapon => weapon.Contains("Sword"));
+            Assert.Contains(_sut.Weapons, weapon => weapon.Contains("Sword"));
         }
 
         [Fact]
         public void HaveAllExpectedWeapons()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
             var expectedWeapons = new[]
             {
                 "Long Bow",
@@ -86,26 +75,22 @@ namespace PluralsightxUnitCourse.Tests
                 "Short Sword",
             };
 
-            Assert.Equal(expectedWeapons, sut.Weapons);
+            Assert.Equal(expectedWeapons, _sut.Weapons);
         }
 
         [Fact]
         public void RaiseSleptEvent()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
             Assert.Raises<EventArgs>(
-                handler => sut.PlayerSlept += handler,
-                handler => sut.PlayerSlept -= handler,
-                () => sut.Sleep());
+                handler => _sut.PlayerSlept += handler,
+                handler => _sut.PlayerSlept -= handler,
+                () => _sut.Sleep());
         }
 
         [Fact]
         public void RasiePropertyChangedEvent()
         {
-            PlayerCharacter sut = new PlayerCharacter();
-
-            Assert.PropertyChanged(sut, "Health", () => sut.TakeDamage(10));
+            Assert.PropertyChanged(_sut, "Health", () => _sut.TakeDamage(10));
         }
     }
 }
