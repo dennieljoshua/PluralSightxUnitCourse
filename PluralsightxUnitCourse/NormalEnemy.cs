@@ -1,4 +1,4 @@
-﻿namespace GameEngine
+﻿namespace PluralsightxUnitCourse
 {
     public class NormalEnemy : Enemy
     {

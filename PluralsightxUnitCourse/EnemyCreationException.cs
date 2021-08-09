@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameEngine
+namespace PluralsightxUnitCourse
 {
     public class EnemyCreationException : Exception
     {
